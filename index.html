@@ -551,6 +551,7 @@
         .programs-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(300px, auto);
             gap: 30px;
             margin-top: 30px;
         }
@@ -559,9 +560,9 @@
             background: var(--bg-light);
             border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.2s ease;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
         }
 
         .program-card.show {
@@ -1713,7 +1714,42 @@
                 if (title.includes('NC III')) level = 'nc3';
                 card.dataset.sector = sector;
                 card.dataset.level = level;
-                card.classList.add('show');
+            });
+        }
+
+        function saveFilterState() {
+            const state = {
+                query: document.querySelector('#searchInput').value || '',
+                sector: document.querySelector('#sectorSelect').value || 'all'
+            };
+            localStorage.setItem('programFilterState', JSON.stringify(state));
+        }
+
+        function restoreFilterState() {
+            const state = JSON.parse(localStorage.getItem('programFilterState') || '{}');
+            if (state.query !== undefined) {
+                const searchInput = document.querySelector('#searchInput');
+                if (searchInput) searchInput.value = state.query;
+            }
+            if (state.sector) {
+                const sectorSelect = document.querySelector('#sectorSelect');
+                if (sectorSelect) sectorSelect.value = state.sector;
+            }
+        }
+
+        function initializeProgramObserver() {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.program-card').forEach(card => {
+                card.classList.remove('show');
+                observer.observe(card);
             });
         }
 
@@ -1732,6 +1768,18 @@
             const others = cards.filter(c => c.dataset.sector !== sector);
             grid.innerHTML = '';
             selected.concat(others).forEach(card => grid.appendChild(card));
+
+            // Trigger animation on reordered cards
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.program-card').forEach(card => card.classList.remove('show'));
+                setTimeout(() => {
+                    document.querySelectorAll('.program-card').forEach(card => {
+                        if (card.style.display !== 'none') {
+                            card.classList.add('show');
+                        }
+                    });
+                }, 10);
+            });
         }
 
         function setActiveSector(selector) {
@@ -1760,11 +1808,20 @@
                     card.classList.remove('show');
                 }
             });
+
+            saveFilterState();
         }
 
         function addFilterListeners() {
-            document.querySelector('#searchInput').addEventListener('input', filterPrograms);
-            document.querySelector('#sectorSelect').addEventListener('change', filterPrograms);
+            const searchInput = document.querySelector('#searchInput');
+            const sectorSelect = document.querySelector('#sectorSelect');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterPrograms);
+            }
+            if (sectorSelect) {
+                sectorSelect.addEventListener('change', filterPrograms);
+            }
         }
 
         function initSectorSelection() {
@@ -1787,9 +1844,11 @@
         window.addEventListener('load', () => {
             animateCounters();
             initializeProgramSectors();
+            restoreFilterState();
             initSectorSelection();
             addFilterListeners();
             filterPrograms();
+            initializeProgramObserver();
         });
     </script>
 </body>
