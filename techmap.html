@@ -808,11 +808,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script>
         // Check authentication before loading the page
+        // For public embedding, bypass login redirect and still load map
         (function() {
             const userData = localStorage.getItem('barmm_user') || sessionStorage.getItem('barmm_user');
             if (!userData) {
-                // No user session found, redirect to login
-                window.location.href = 'login.html';
+                console.warn('No user session found; loading map in public mode.');
                 return;
             }
             // Optional: Parse and validate user data
@@ -820,11 +820,9 @@
                 const user = JSON.parse(userData);
                 console.log('User authenticated:', user.username);
             } catch (e) {
-                // Invalid session data, redirect to login
                 localStorage.removeItem('barmm_user');
                 sessionStorage.removeItem('barmm_user');
-                window.location.href = 'login.html';
-                return;
+                console.warn('Invalid session data; load map in public mode.');
             }
         })();
 
