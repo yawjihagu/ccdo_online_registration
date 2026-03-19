@@ -1,3 +1,56 @@
-## Enrol Button ##
-Option 1 - All active qualification/open qualification will be showing in the redirect link as per notification of the scholarship focal to the ICT
-Option 2 - All qualification/open or close will be active in the static page 
+Section 1
+## Navbar - Fixed Navigation Bar ##
+Stays visible as the user scrolls. Contains the MBHTE logo + center name on the left, and five navigation links
+(Home, Programs, Locations, Schedule, Login) on the right. Collapses to a hamburger menu on mobile.
+Becomes fully opaque on scroll.
+
+Section 2
+## First impression. A gold scholarship badge anchors the top, followed by the center name as the main
+headline. A subtitle gives the location. Three CTA buttons serve all audiences: Enroll Now (new applicants),
+Browse Programs (explorers), and Track Application (returning users). Four stat boxes highlight key figures.
+Animated waves flow at the bottom for visual energy.
+
+Section 3
+Sectors — Program Categories
+6 clickable tiles group all 15 programs by industry sector: ICT, Tourism & Food, Construction, Health,
+Agriculture, and Security. Each tile shows an icon, sector name, and program count. Clicking scrolls down to
+the Programs section. Helps users quickly find courses relevant to their field.
+
+Section 4
+Why Us — Value Proposition
+3 benefit cards on the green background address the most common questions from applicants and partner
+institutions: Is it free? (100% scholarship), Is it recognized? (TESDA NC certificate), and Is the training quality?
+(accredited trainers & facilities). Builds trust before the user reaches the program list.
+
+Section 5
+Quick Access — Action Hub
+4 shortcut cards for the most common tasks: Online Registration, Track Application, Find Locations, and
+Training Schedule. Designed for returning visitors who know what they need and want to get there fast —
+without scrolling through the full page.
+
+Section 6
+Programs — Course Catalog
+A 3-column grid of 15 program cards, each showing a sector icon, course name, training hours, schedule,
+location, benefits, and a Pre-Register button. Cards are organized alphabetically. The consistent card layout
+makes it easy to scan and compare. Each card links directly to the registration modal.
+
+Section 7
+Map — Training Center Locator
+An embedded interactive map (loaded via iframe from ccdomap.html) showing TESDA-accredited training
+centers across BARMM. Helps general public and walk-in visitors find the nearest center. Especially useful for
+users from provinces outside Cotabato City.
+
+Section 8
+Calendar — Schedule & Announcements
+Two-column layout: left column lists upcoming training schedules with dates, titles, and venue details. Right
+column shows important announcements like scholarship application periods, walk-in registration info, and
+new center openings. Keeps all audiences — applicants, partners, and the general public — informed without
+needing to contact the office.
+
+Section 9
+Footer — Contact & Navigation
+4-column layout: About (logo + agency description + social links), Quick Links (repeat of key navigation for
+accessibility), Contact Us (phone, email, address), and Office Hours (with a "Limited Slots" notice). A copyright
+bar closes the page. The logo in the footer reinforces brand identity and institutional credibility.
+
+
