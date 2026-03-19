@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBHTE Landing Page — Annotated Wireframe</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0f0ec;padding:32px 16px;color:#333}
+
+h1.doc-title{text-align:center;font-size:20px;font-weight:600;color:#222;margin-bottom:4px}
+p.doc-sub{text-align:center;font-size:13px;color:#888;margin-bottom:32px}
+
+.page{display:flex;gap:0;max-width:1050px;margin:0 auto;align-items:flex-start}
+
+/* WIREFRAME COLUMN */
+.wf-col{width:420px;flex-shrink:0;position:relative}
+.wf{width:100%;border:1.5px solid #bbb;border-radius:12px;overflow:hidden;background:#fff;position:relative}
+
+/* ANNOTATION COLUMN */
+.ann-col{flex:1;padding-left:0;display:flex;flex-direction:column}
+
+/* CONNECTOR LINES */
+.row{display:flex;align-items:stretch;position:relative}
+.ann-entry{flex:1;padding:10px 14px 10px 20px;border-left:2px solid #ddd;margin-left:16px;position:relative;display:flex;flex-direction:column;justify-content:center}
+.ann-entry::before{content:'';position:absolute;left:-9px;top:50%;transform:translateY(-50%);width:16px;height:2px;background:#ddd}
+.ann-dot{position:absolute;left:-13px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:#bbb;border:2px solid #fff}
+.ann-tag{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#888;margin-bottom:4px}
+.ann-title{font-size:13px;font-weight:600;color:#222;margin-bottom:4px}
+.ann-desc{font-size:12px;color:#666;line-height:1.6}
+
+/* SECTION COLORS BY TYPE */
+.ann-entry.nav .ann-dot{background:#5F5E5A}
+.ann-entry.nav{border-left-color:#5F5E5A}
+.ann-entry.hero .ann-dot{background:#3B6D11}
+.ann-entry.hero{border-left-color:#3B6D11}
+.ann-entry.sector .ann-dot{background:#185FA5}
+.ann-entry.sector{border-left-color:#185FA5}
+.ann-entry.why .ann-dot{background:#0F6E56}
+.ann-entry.why{border-left-color:#0F6E56}
+.ann-entry.quick .ann-dot{background:#854F0B}
+.ann-entry.quick{border-left-color:#854F0B}
+.ann-entry.programs .ann-dot{background:#993556}
+.ann-entry.programs{border-left-color:#993556}
+.ann-entry.map .ann-dot{background:#185FA5}
+.ann-entry.map{border-left-color:#185FA5}
+.ann-entry.cal .ann-dot{background:#993C1D}
+.ann-entry.cal{border-left-color:#993C1D}
+.ann-entry.footer .ann-dot{background:#5F5E5A}
+.ann-entry.footer{border-left-color:#5F5E5A}
+
+/* WIREFRAME PARTS */
+.label{position:absolute;top:5px;right:7px;font-size:9px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px}
+.bar{height:6px;border-radius:3px;background:#ccc}
+.nav-wf{background:#f0f0f0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ccc;position:relative}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.logo-circle{width:26px;height:26px;border-radius:50%;background:#ccc;border:1px solid #aaa}
+.nav-text{display:flex;flex-direction:column;gap:2px}
+.nav-links{display:flex;gap:8px}
+.nav-link{width:36px;height:7px;border-radius:3px;background:#ccc}
+
+.hero-wf{background:#e0e8e0;padding:32px 20px 52px;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;overflow:hidden;border-bottom:1px dashed #ccc}
+.hero-badge{width:140px;height:12px;border-radius:6px;background:#b0c8b0}
+.hero-h1{width:80%;height:18px;border-radius:4px;background:#8aaa8a}
+.hero-h1b{width:55%;height:18px;border-radius:4px;background:#8aaa8a}
+.hero-sub{width:60%;height:9px;border-radius:3px;background:#b0c8b0}
+.hero-sub2{width:45%;height:9px;border-radius:3px;background:#b0c8b0}
+.hero-btns{display:flex;gap:6px;margin-top:2px}
+.btn-wf{height:22px;border-radius:11px;background:#b0c8b0;border:1px solid #8aaa8a}
+.btn-wf.primary{width:80px;background:#6a9a6a}
+.btn-wf.outline{width:90px}
+.btn-wf.outline2{width:100px}
+.stats-row{display:flex;gap:6px;width:100%}
+.stat-box-wf{flex:1;border:1px solid #b0c8b0;border-radius:5px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.stat-num{width:32px;height:12px;border-radius:3px;background:#8aaa8a}
+.stat-lbl{width:44px;height:7px;border-radius:3px;background:#b0c8b0}
+.wave-wf{position:absolute;bottom:0;left:0;width:100%;height:28px;opacity:0.4}
+
+.section-wf{width:100%;border-bottom:1px dashed #ccc;position:relative;padding:18px 14px}
+.sec-header{display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:12px}
+.sec-h2{width:130px;height:12px;border-radius:3px;background:#aaa}
+.sec-sub{width:190px;height:8px;border-radius:3px;background:#ccc}
+.sector-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.sector-tile-wf{border:1px solid #ccc;border-radius:5px;padding:6px 3px;display:flex;flex-direction:column;align-items:center;gap:3px;background:#f8f8f8}
+.sector-icon-wf{width:20px;height:20px;border-radius:50%;background:#ccc}
+.sector-lbl{width:90%;height:6px;border-radius:3px;background:#ccc}
+.sector-lbl2{width:60%;height:6px;border-radius:3px;background:#ccc}
+.sector-ct{width:40%;height:5px;border-radius:3px;background:#e0e0e0}
+
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.benefit-wf{border:1px solid #ccc;border-radius:6px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff}
+.benefit-icon-wf{width:26px;height:26px;border-radius:50%;background:#ccc;margin-bottom:3px}
+.benefit-h{width:80%;height:8px;border-radius:3px;background:#aaa}
+.benefit-t{width:90%;height:6px;border-radius:3px;background:#ccc}
+.benefit-t2{width:70%;height:6px;border-radius:3px;background:#ccc}
+
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.qa-card{border:1px solid #ccc;border-radius:6px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;background:#f8f8f8}
+.qa-icon{width:30px;height:30px;border-radius:50%;background:#ccc;margin-bottom:3px}
+.qa-h{width:80%;height:8px;border-radius:3px;background:#aaa}
+.qa-t{width:70%;height:6px;border-radius:3px;background:#ccc}
+
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.prog-card{border:1px solid #ccc;border-radius:6px;overflow:hidden;background:#fff}
+.prog-img{height:38px;background:#ccc;display:flex;align-items:center;justify-content:center}
+.prog-img-icon{width:20px;height:20px;border-radius:50%;background:#aaa}
+.prog-body{padding:6px;display:flex;flex-direction:column;gap:3px}
+.prog-h{width:85%;height:8px;border-radius:3px;background:#aaa}
+.prog-d{width:70%;height:6px;border-radius:3px;background:#ccc}
+.prog-btn{width:100%;height:16px;border-radius:8px;background:#ccc;margin-top:3px}
+
+.map-box{width:100%;height:90px;border:1px solid #ccc;border-radius:6px;margin-top:12px;background:#e8e8e8;display:flex;align-items:center;justify-content:center}
+.map-ph{width:55%;height:9px;border-radius:3px;background:#ccc}
+
+.cal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cal-card{border:1px solid #ccc;border-left:3px solid #aaa;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:6px;background:#fff}
+.cal-h{width:65%;height:9px;border-radius:3px;background:#aaa}
+.event-wf{border:1px solid #e0e0e0;border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:3px}
+.ev-date{width:50%;height:6px;border-radius:3px;background:#ccc}
+.ev-title{width:80%;height:7px;border-radius:3px;background:#aaa}
+.ev-det{width:65%;height:6px;border-radius:3px;background:#ccc}
+
+.footer-wf{padding:16px 14px;background:#f0f0f0}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.footer-col{display:flex;flex-direction:column;gap:4px}
+.footer-logo-row{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.footer-logo-c{width:20px;height:20px;border-radius:50%;background:#ccc;border:1px solid #aaa}
+.footer-h{width:70%;height:8px;border-radius:3px;background:#aaa}
+.footer-t{width:90%;height:6px;border-radius:3px;background:#ccc}
+.footer-t2{width:75%;height:6px;border-radius:3px;background:#ccc}
+.social-row{display:flex;gap:4px;margin-top:3px}
+.social-icon{width:15px;height:15px;border-radius:50%;background:#ccc}
+.footer-bottom{text-align:center;padding:8px;border-top:1px solid #ccc;margin-top:10px}
+.footer-bottom-bar{width:55%;height:6px;border-radius:3px;background:#ccc;margin:0 auto}
+
+.note-small{font-size:10px;color:#999;text-align:center;margin-top:6px}
+</style>
+</head>
+<body>
+
+<h1 class="doc-title">MBHTE-TESD BARMM — Landing Page Wireframe</h1>
+<p class="doc-sub">Annotated layout · Regional Manpower Development Center</p>
+
+<div class="page">
+
+  <!-- WIREFRAME -->
+  <div class="wf-col">
+    <div class="wf">
+
+      <!-- NAVBAR -->
+      <div class="nav-wf">
+        <div class="nav-logo">
+          <div class="logo-circle"></div>
+          <div class="nav-text">
+            <div class="bar" style="width:66px"></div>
+            <div class="bar" style="width:48px;margin-top:3px;opacity:0.5"></div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <div class="nav-link"></div><div class="nav-link"></div>
+          <div class="nav-link"></div><div class="nav-link"></div><div class="nav-link"></div>
+        </div>
+        <div class="label">navbar</div>
+      </div>
+
+      <!-- HERO -->
+      <div class="hero-wf">
+        <div class="label">hero</div>
+        <div class="hero-badge"></div>
+        <div class="hero-h1"></div>
+        <div class="hero-h1b"></div>
+        <div class="hero-sub"></div>
+        <div class="hero-sub2"></div>
+        <div class="hero-btns">
+          <div class="btn-wf primary"></div>
+          <div class="btn-wf outline"></div>
+          <div class="btn-wf outline2"></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box-wf"><div class="stat-num"></div><div class="stat-lbl"></div></div>
+          <div class="stat-box-wf"><div class="stat-num"></div><div class="stat-lbl"></div></div>
+          <div class="stat-box-wf"><div class="stat-num"></div><div class="stat-lbl"></div></div>
+          <div class="stat-box-wf"><div class="stat-num"></div><div class="stat-lbl"></div></div>
+        </div>
+        <svg class="wave-wf" viewBox="0 0 420 28" preserveAspectRatio="none">
+          <path fill="#6a9a6a" d="M0,14 C60,0 140,28 210,14 C280,0 360,28 420,14 L420,28 L0,28 Z"/>
+          <path fill="#8aaa8a" d="M0,20 C80,8 180,26 280,16 C360,8 400,24 420,20 L420,28 L0,28 Z"/>
+        </svg>
+      </div>
+
+      <!-- SECTORS -->
+      <div class="section-wf" style="background:#fff">
+        <div class="label">sectors</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="sector-grid">
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+          <div class="sector-tile-wf"><div class="sector-icon-wf"></div><div class="sector-lbl"></div><div class="sector-lbl2"></div><div class="sector-ct"></div></div>
+        </div>
+      </div>
+
+      <!-- WHY US -->
+      <div class="section-wf" style="background:#f5f5f5">
+        <div class="label">why us</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="benefits-grid">
+          <div class="benefit-wf"><div class="benefit-icon-wf"></div><div class="benefit-h"></div><div class="benefit-t"></div><div class="benefit-t2"></div></div>
+          <div class="benefit-wf"><div class="benefit-icon-wf"></div><div class="benefit-h"></div><div class="benefit-t"></div><div class="benefit-t2"></div></div>
+          <div class="benefit-wf"><div class="benefit-icon-wf"></div><div class="benefit-h"></div><div class="benefit-t"></div><div class="benefit-t2"></div></div>
+        </div>
+      </div>
+
+      <!-- QUICK ACCESS -->
+      <div class="section-wf" style="background:#fff">
+        <div class="label">quick access</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="qa-grid">
+          <div class="qa-card"><div class="qa-icon"></div><div class="qa-h"></div><div class="qa-t"></div></div>
+          <div class="qa-card"><div class="qa-icon"></div><div class="qa-h"></div><div class="qa-t"></div></div>
+          <div class="qa-card"><div class="qa-icon"></div><div class="qa-h"></div><div class="qa-t"></div></div>
+          <div class="qa-card"><div class="qa-icon"></div><div class="qa-h"></div><div class="qa-t"></div></div>
+        </div>
+      </div>
+
+      <!-- PROGRAMS -->
+      <div class="section-wf" style="background:#f5f5f5">
+        <div class="label">programs</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="prog-grid">
+          <div class="prog-card"><div class="prog-img"><div class="prog-img-icon"></div></div><div class="prog-body"><div class="prog-h"></div><div class="prog-d"></div><div class="prog-d" style="width:55%"></div><div class="prog-btn"></div></div></div>
+          <div class="prog-card"><div class="prog-img"><div class="prog-img-icon"></div></div><div class="prog-body"><div class="prog-h"></div><div class="prog-d"></div><div class="prog-d" style="width:55%"></div><div class="prog-btn"></div></div></div>
+          <div class="prog-card"><div class="prog-img"><div class="prog-img-icon"></div></div><div class="prog-body"><div class="prog-h"></div><div class="prog-d"></div><div class="prog-d" style="width:55%"></div><div class="prog-btn"></div></div></div>
+        </div>
+        <div class="note-small">+ 12 more cards in 3-column grid</div>
+      </div>
+
+      <!-- MAP -->
+      <div class="section-wf" style="background:#fff">
+        <div class="label">map</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="map-box"><div class="map-ph"></div></div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="section-wf" style="background:#f5f5f5">
+        <div class="label">calendar</div>
+        <div class="sec-header"><div class="sec-h2"></div><div class="sec-sub"></div></div>
+        <div class="cal-grid">
+          <div class="cal-card">
+            <div class="cal-h"></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+          </div>
+          <div class="cal-card">
+            <div class="cal-h"></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+            <div class="event-wf"><div class="ev-date"></div><div class="ev-title"></div><div class="ev-det"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer-wf">
+        <div class="label">footer</div>
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo-row"><div class="footer-logo-c"></div><div class="footer-h"></div></div>
+            <div class="footer-t"></div><div class="footer-t2"></div><div class="footer-t"></div>
+            <div class="social-row">
+              <div class="social-icon"></div><div class="social-icon"></div><div class="social-icon"></div><div class="social-icon"></div>
+            </div>
+          </div>
+          <div class="footer-col"><div class="footer-h"></div><div class="footer-t"></div><div class="footer-t2"></div><div class="footer-t"></div><div class="footer-t2"></div></div>
+          <div class="footer-col"><div class="footer-h"></div><div class="footer-t"></div><div class="footer-t2"></div><div class="footer-t"></div></div>
+          <div class="footer-col"><div class="footer-h"></div><div class="footer-t"></div><div class="footer-t2"></div><div class="footer-t" style="background:#aaa;width:50%;margin-top:6px"></div><div class="footer-t2" style="background:#aaa"></div></div>
+        </div>
+        <div class="footer-bottom"><div class="footer-bottom-bar"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ANNOTATIONS -->
+  <div class="ann-col">
+
+    <div class="ann-entry nav">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 1</div>
+      <div class="ann-title">Navbar — Fixed Navigation Bar</div>
+      <div class="ann-desc">Stays visible as the user scrolls. Contains the MBHTE logo + center name on the left, and five navigation links (Home, Programs, Locations, Schedule, Login) on the right. Collapses to a hamburger menu on mobile. Becomes fully opaque on scroll.</div>
+    </div>
+
+    <div class="ann-entry hero">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 2</div>
+      <div class="ann-title">Hero — Center Showcase</div>
+      <div class="ann-desc">First impression. A gold scholarship badge anchors the top, followed by the center name as the main headline. A subtitle gives the location. Three CTA buttons serve all audiences: Enroll Now (new applicants), Browse Programs (explorers), and Track Application (returning users). Four stat boxes highlight key figures. Animated waves flow at the bottom for visual energy.</div>
+    </div>
+
+    <div class="ann-entry sector">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 3</div>
+      <div class="ann-title">Sectors — Program Categories</div>
+      <div class="ann-desc">6 clickable tiles group all 15 programs by industry sector: ICT, Tourism & Food, Construction, Health, Agriculture, and Security. Each tile shows an icon, sector name, and program count. Clicking scrolls down to the Programs section. Helps users quickly find courses relevant to their field.</div>
+    </div>
+
+    <div class="ann-entry why">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 4</div>
+      <div class="ann-title">Why Us — Value Proposition</div>
+      <div class="ann-desc">3 benefit cards on the green background address the most common questions from applicants and partner institutions: Is it free? (100% scholarship), Is it recognized? (TESDA NC certificate), and Is the training quality? (accredited trainers & facilities). Builds trust before the user reaches the program list.</div>
+    </div>
+
+    <div class="ann-entry quick">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 5</div>
+      <div class="ann-title">Quick Access — Action Hub</div>
+      <div class="ann-desc">4 shortcut cards for the most common tasks: Online Registration, Track Application, Find Locations, and Training Schedule. Designed for returning visitors who know what they need and want to get there fast — without scrolling through the full page.</div>
+    </div>
+
+    <div class="ann-entry programs">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 6</div>
+      <div class="ann-title">Programs — Course Catalog</div>
+      <div class="ann-desc">A 3-column grid of 15 program cards, each showing a sector icon, course name, training hours, schedule, location, benefits, and a Pre-Register button. Cards are organized alphabetically. The consistent card layout makes it easy to scan and compare. Each card links directly to the registration modal.</div>
+    </div>
+
+    <div class="ann-entry map">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 7</div>
+      <div class="ann-title">Map — Training Center Locator</div>
+      <div class="ann-desc">An embedded interactive map (loaded via iframe from ccdomap.html) showing TESDA-accredited training centers across BARMM. Helps general public and walk-in visitors find the nearest center. Especially useful for users from provinces outside Cotabato City.</div>
+    </div>
+
+    <div class="ann-entry cal">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 8</div>
+      <div class="ann-title">Calendar — Schedule & Announcements</div>
+      <div class="ann-desc">Two-column layout: left column lists upcoming training schedules with dates, titles, and venue details. Right column shows important announcements like scholarship application periods, walk-in registration info, and new center openings. Keeps all audiences — applicants, partners, and the general public — informed without needing to contact the office.</div>
+    </div>
+
+    <div class="ann-entry footer">
+      <div class="ann-dot"></div>
+      <div class="ann-tag">Section 9</div>
+      <div class="ann-title">Footer — Contact & Navigation</div>
+      <div class="ann-desc">4-column layout: About (logo + agency description + social links), Quick Links (repeat of key navigation for accessibility), Contact Us (phone, email, address), and Office Hours (with a "Limited Slots" notice). A copyright bar closes the page. The logo in the footer reinforces brand identity and institutional credibility.</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
