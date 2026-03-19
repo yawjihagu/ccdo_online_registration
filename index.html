@@ -978,7 +978,7 @@
         <div class="section-container">
             <div class="section-header">
                 <h2>Programs by Sector</h2>
-                <p>Explore our 15 TESDA-accredited qualifications across 6 sectors</p>
+                <p>Explore our 15 TESDA-accredited qualifications across 7 sectors</p>
             </div>
             <div class="sectors-grid">
                 <a href="#programs" class="sector-tile" data-sector="ict">
@@ -988,7 +988,7 @@
                 </a>
                 <a href="#programs" class="sector-tile" data-sector="tourism">
                     <div class="sector-icon"><i class="fas fa-utensils"></i></div>
-                    <h4>Tourism, Hospitality &amp; Food</h4>
+                    <h4>Tourism</h4>
                     <div class="prog-count">4 Programs</div>
                 </a>
                 <a href="#programs" class="sector-tile" data-sector="construction">
@@ -999,7 +999,12 @@
                 <a href="#programs" class="sector-tile" data-sector="health">
                     <div class="sector-icon"><i class="fas fa-heartbeat"></i></div>
                     <h4>Health, Social &amp; Other Services</h4>
-                    <div class="prog-count">2 Programs</div>
+                    <div class="prog-count">1 Program</div>
+                </a>
+                <a href="#programs" class="sector-tile" data-sector="tvet">
+                    <div class="sector-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h4>TVET</h4>
+                    <div class="prog-count">1 Program</div>
                 </a>
                 <a href="#programs" class="sector-tile" data-sector="agriculture">
                     <div class="sector-icon"><i class="fas fa-seedling"></i></div>
@@ -1109,6 +1114,7 @@
                         <option value="health">Health, Social & Other Services</option>
                         <option value="agriculture">Agriculture & Fishery</option>
                         <option value="security">Security & Safety Services</option>
+                        <option value="tvet">TVET</option>
                     </select>
                 </div>
             </div>
@@ -1847,7 +1853,7 @@
             'PV Installation NC II': 'construction',
             'Shielded Metal Arc Welding (SMAW) NC II': 'construction',
             'Tile Setting NC II': 'construction',
-            'Trainers Methodology Level I': 'health'
+            'Trainers Methodology Level I': 'tvet'
             };
             document.querySelectorAll('.program-card').forEach(card => {
                 const title = card.querySelector('.program-content h3')?.textContent?.trim() || '';
