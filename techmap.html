@@ -736,7 +736,7 @@
         </div>
         
         <div class="filter-section">
-            <label>Province:</label>
+            <label>City:</label>
             <select id="provinceFilter" onchange="filterInstitutions()">
                 <option value="cotabato-city">Cotabato City</option>
             </select>
@@ -819,7 +819,7 @@
             }
         })();
 
-        const map = L.map('map').setView([7.0, 124.5], 8);
+        const map = L.map('map').setView([7.2047, 124.2383], 12);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
@@ -3509,7 +3509,7 @@
                     ${getStatusBadge(inst.status)}
                     <p><strong>Type:</strong> ${inst.type.toUpperCase()}</p>
                     <p><strong>Address:</strong> ${inst.address}</p>
-                    <p><strong>Province:</strong> ${inst.province.replace(/-/g, ' ').toUpperCase()}</p>
+                    <p><strong>City:</strong> ${inst.province.replace(/-/g, ' ').toUpperCase()}</p>
                     <p><strong>Contact:</strong> ${inst.contactNumber}</p>
                     <p><strong>Email:</strong> ${inst.email}</p>
                     <p><strong>Expires:</strong> ${inst.expiryDate}</p>
@@ -3611,7 +3611,7 @@
                 return typeMatch && statusMatch && provinceMatch;
             });
 
-            const headers = ['Name', 'Type', 'Address', 'Province', 'Status', 'Contact Person', 'Contact Number', 'Email', 'Accreditation Date', 'Expiry Date'];
+            const headers = ['Name', 'Type', 'Address', 'City', 'Status', 'Contact Person', 'Contact Number', 'Email', 'Accreditation Date', 'Expiry Date'];
             const csvContent = [
                 headers.join(','),
                 ...filtered.map(inst => [
