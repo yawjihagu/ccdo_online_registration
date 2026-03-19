@@ -512,11 +512,60 @@
             background: white;
         }
 
+        .program-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+            margin-bottom: 24px;
+            background: #fff;
+            border: 1px solid #e9e9e9;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 180px;
+            flex: 1 1 190px;
+        }
+
+        .control-item input,
+        .control-item select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .control-item input:focus,
+        .control-item select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 2px rgba(13,94,47,0.1);
+        }
+
+        .level-filters {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .level-filters label {
+            font-size: 13px;
+            color: #555;
+            margin: 0;
+        }
+
         .programs-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .program-card {
@@ -524,7 +573,15 @@
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(10px);
         }
+
+        .program-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
 
         .program-card:hover {
             transform: translateY(-5px);
@@ -1044,6 +1101,30 @@
             <div class="section-header">
                 <h2>Available Programs</h2>
                 <p>Choose from our wide range of TESDA-accredited courses</p>
+            </div>
+
+            <div class="program-controls">
+                <div class="control-item">
+                    <label for="searchInput">Search programs</label>
+                    <input id="searchInput" type="text" placeholder="Search by program title..." />
+                </div>
+                <div class="control-item">
+                    <label for="sectorSelect">Sector</label>
+                    <select id="sectorSelect">
+                        <option value="all">All sectors</option>
+                        <option value="ict">Information & Communications Technology</option>
+                        <option value="tourism">Tourism, Hospitality & Food</option>
+                        <option value="construction">Construction & Infrastructure</option>
+                        <option value="health">Health, Social & Other Services</option>
+                        <option value="agriculture">Agriculture & Fishery</option>
+                        <option value="security">Security & Safety Services</option>
+                    </select>
+                </div>
+                <div class="control-item level-filters">
+                    <span>Level</span>
+                    <label><input type="checkbox" name="level" value="nc2" checked /> NC II</label>
+                    <label><input type="checkbox" name="level" value="nc3" /> NC III</label>
+                </div>
             </div>
 
             <div class="programs-grid">
@@ -1623,7 +1704,7 @@
             });
         }
 
-        // Put programs in sector buckets by data attribute
+        // Put programs in sector buckets by data attribute and set level
         function initializeProgramSectors() {
             const mappings = {
                 'Housekeeping NC II': 'tourism',
@@ -1643,9 +1724,14 @@
                 'Pest Management (Vegetable) NC II': 'agriculture'
             };
             document.querySelectorAll('.program-card').forEach(card => {
-                const programTitle = card.querySelector('.program-content h3')?.textContent?.trim();
-                const sector = mappings[programTitle] || 'other';
+                const title = card.querySelector('.program-content h3')?.textContent?.trim() || '';
+                const sector = mappings[title] || 'other';
+                let level = 'other';
+                if (title.includes('NC II')) level = 'nc2';
+                if (title.includes('NC III')) level = 'nc3';
                 card.dataset.sector = sector;
+                card.dataset.level = level;
+                card.classList.add('show');
             });
         }
 
@@ -1672,6 +1758,39 @@
             });
         }
 
+        function filterPrograms() {
+            const query = document.querySelector('#searchInput').value.trim().toLowerCase();
+            const selectedSector = document.querySelector('#sectorSelect').value;
+            const checkedLevels = Array.from(document.querySelectorAll('input[name="level"]:checked')).map(el => el.value);
+            const cards = document.querySelectorAll('.program-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.program-content h3').textContent.toLowerCase();
+                const sector = card.dataset.sector;
+                const level = card.dataset.level;
+
+                const matchesQuery = !query || title.includes(query);
+                const matchesSector = selectedSector === 'all' || sector === selectedSector;
+                const matchesLevel = checkedLevels.length === 0 || checkedLevels.includes(level);
+
+                if (matchesQuery && matchesSector && matchesLevel) {
+                    card.style.display = '';
+                    setTimeout(() => card.classList.add('show'), 20);
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('show');
+                }
+            });
+        }
+
+        function addFilterListeners() {
+            document.querySelector('#searchInput').addEventListener('input', filterPrograms);
+            document.querySelector('#sectorSelect').addEventListener('change', filterPrograms);
+            document.querySelectorAll('input[name="level"]').forEach(checkbox => {
+                checkbox.addEventListener('change', filterPrograms);
+            });
+        }
+
         function initSectorSelection() {
             document.querySelectorAll('.sector-tile').forEach(tile => {
                 tile.addEventListener('click', (event) => {
@@ -1679,7 +1798,9 @@
                     if (!sector) return;
                     event.preventDefault();
                     setActiveSector(tile);
+                    document.querySelector('#sectorSelect').value = sector;
                     reorderProgramsBySector(sector);
+                    filterPrograms();
                     const programSection = document.querySelector('#programs');
                     programSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
@@ -1691,6 +1812,8 @@
             animateCounters();
             initializeProgramSectors();
             initSectorSelection();
+            addFilterListeners();
+            filterPrograms();
         });
     </script>
 </body>
