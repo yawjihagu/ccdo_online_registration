@@ -303,6 +303,12 @@
             cursor: pointer;
         }
 
+        .sector-tile.active {
+            border-color: var(--accent-yellow);
+            background: #fff;
+            box-shadow: 0 10px 24px rgba(255, 215, 0, 0.25);
+        }
+
         .sector-tile:hover {
             border-color: var(--primary-green);
             background: white;
@@ -927,32 +933,32 @@
                 <p>Explore our 15 TESDA-accredited qualifications across 6 sectors</p>
             </div>
             <div class="sectors-grid">
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="ict">
                     <div class="sector-icon"><i class="fas fa-laptop-code"></i></div>
                     <h4>Information &amp; Communications Technology</h4>
                     <div class="prog-count">2 Programs</div>
                 </a>
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="tourism">
                     <div class="sector-icon"><i class="fas fa-utensils"></i></div>
                     <h4>Tourism, Hospitality &amp; Food</h4>
                     <div class="prog-count">4 Programs</div>
                 </a>
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="construction">
                     <div class="sector-icon"><i class="fas fa-hard-hat"></i></div>
                     <h4>Construction &amp; Infrastructure</h4>
                     <div class="prog-count">3 Programs</div>
                 </a>
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="health">
                     <div class="sector-icon"><i class="fas fa-heartbeat"></i></div>
                     <h4>Health, Social &amp; Other Services</h4>
                     <div class="prog-count">2 Programs</div>
                 </a>
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="agriculture">
                     <div class="sector-icon"><i class="fas fa-seedling"></i></div>
                     <h4>Agriculture &amp; Fishery</h4>
                     <div class="prog-count">1 Program</div>
                 </a>
-                <a href="#programs" class="sector-tile">
+                <a href="#programs" class="sector-tile" data-sector="security">
                     <div class="sector-icon"><i class="fas fa-shield-alt"></i></div>
                     <h4>Security &amp; Safety Services</h4>
                     <div class="prog-count">2 Programs</div>
@@ -1617,8 +1623,75 @@
             });
         }
 
-        // Trigger counter on page load
-        window.addEventListener('load', animateCounters);
+        // Put programs in sector buckets by data attribute
+        function initializeProgramSectors() {
+            const mappings = {
+                'Housekeeping NC II': 'tourism',
+                'Bread & Pastry NC II': 'tourism',
+                'Cookery NC II': 'tourism',
+                'Food Processing NC II': 'tourism',
+                'Computer Systems Servicing NC II': 'ict',
+                'Contact Center Services NC II': 'ict',
+                'Electronic Products Assembly and Servicing NC II': 'ict',
+                'Technical Drafting NC II': 'ict',
+                'Driving NC II': 'construction',
+                'Electrical Installation and Maintenance NC II': 'construction',
+                'Masonry NC II': 'construction',
+                'Plumbing NC II': 'construction',
+                'Health Care Services NC II': 'health',
+                'Security Services NC II': 'security',
+                'Pest Management (Vegetable) NC II': 'agriculture'
+            };
+            document.querySelectorAll('.program-card').forEach(card => {
+                const programTitle = card.querySelector('.program-content h3')?.textContent?.trim();
+                const sector = mappings[programTitle] || 'other';
+                card.dataset.sector = sector;
+            });
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function reorderProgramsBySector(sector) {
+            const grid = document.querySelector('.programs-grid');
+            const cards = Array.from(grid.querySelectorAll('.program-card'));
+            const selected = shuffle(cards.filter(c => c.dataset.sector === sector));
+            const others = cards.filter(c => c.dataset.sector !== sector);
+            grid.innerHTML = '';
+            selected.concat(others).forEach(card => grid.appendChild(card));
+        }
+
+        function setActiveSector(selector) {
+            document.querySelectorAll('.sector-tile').forEach(tile => {
+                tile.classList.toggle('active', tile === selector);
+            });
+        }
+
+        function initSectorSelection() {
+            document.querySelectorAll('.sector-tile').forEach(tile => {
+                tile.addEventListener('click', (event) => {
+                    const sector = tile.dataset.sector;
+                    if (!sector) return;
+                    event.preventDefault();
+                    setActiveSector(tile);
+                    reorderProgramsBySector(sector);
+                    const programSection = document.querySelector('#programs');
+                    programSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        }
+
+        // Trigger counter and sector logic on page load
+        window.addEventListener('load', () => {
+            animateCounters();
+            initializeProgramSectors();
+            initSectorSelection();
+        });
     </script>
 </body>
 </html>
