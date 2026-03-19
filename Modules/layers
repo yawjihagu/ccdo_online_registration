@@ -1,0 +1,11 @@
+## Layers
+
+PUBLIC (no login needed)          PROTECTED (login required)
+─────────────────────────         ──────────────────────────
+Landing page (index.html)    →    Admin Panel
+Program catalog              →    Registration Management
+Online pre-registration      →    Applicant Records
+Training schedule            →    Accreditation Map [staff & Applicant (only provide necessary data of the school for contact)]
+Map of centers               →    Reports & CSV Export
+Track by reference number    →    Announcements Editor
+
