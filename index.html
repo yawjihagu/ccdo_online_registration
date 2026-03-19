@@ -548,19 +548,6 @@
             box-shadow: 0 0 0 2px rgba(13,94,47,0.1);
         }
 
-        .level-filters {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .level-filters label {
-            font-size: 13px;
-            color: #555;
-            margin: 0;
-        }
-
         .programs-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1119,11 +1106,6 @@
                         <option value="agriculture">Agriculture & Fishery</option>
                         <option value="security">Security & Safety Services</option>
                     </select>
-                </div>
-                <div class="control-item level-filters">
-                    <span>Level</span>
-                    <label><input type="checkbox" name="level" value="nc2" checked /> NC II</label>
-                    <label><input type="checkbox" name="level" value="nc3" /> NC III</label>
                 </div>
             </div>
 
@@ -1761,19 +1743,16 @@
         function filterPrograms() {
             const query = document.querySelector('#searchInput').value.trim().toLowerCase();
             const selectedSector = document.querySelector('#sectorSelect').value;
-            const checkedLevels = Array.from(document.querySelectorAll('input[name="level"]:checked')).map(el => el.value);
             const cards = document.querySelectorAll('.program-card');
 
             cards.forEach(card => {
                 const title = card.querySelector('.program-content h3').textContent.toLowerCase();
                 const sector = card.dataset.sector;
-                const level = card.dataset.level;
 
                 const matchesQuery = !query || title.includes(query);
                 const matchesSector = selectedSector === 'all' || sector === selectedSector;
-                const matchesLevel = checkedLevels.length === 0 || checkedLevels.includes(level);
 
-                if (matchesQuery && matchesSector && matchesLevel) {
+                if (matchesQuery && matchesSector) {
                     card.style.display = '';
                     setTimeout(() => card.classList.add('show'), 20);
                 } else {
@@ -1786,9 +1765,6 @@
         function addFilterListeners() {
             document.querySelector('#searchInput').addEventListener('input', filterPrograms);
             document.querySelector('#sectorSelect').addEventListener('change', filterPrograms);
-            document.querySelectorAll('input[name="level"]').forEach(checkbox => {
-                checkbox.addEventListener('change', filterPrograms);
-            });
         }
 
         function initSectorSelection() {
