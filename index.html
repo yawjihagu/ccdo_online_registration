@@ -1103,12 +1103,17 @@
                     <label for="sectorSelect">Sector</label>
                     <select id="sectorSelect">
                         <option value="all">All sectors</option>
-                        <option value="ict">Information & Communications Technology</option>
                         <option value="tourism">Tourism, Hospitality & Food</option>
+                        <option value="ict">Information & Communications Technology</option>
                         <option value="construction">Construction & Infrastructure</option>
                         <option value="health">Health, Social & Other Services</option>
                         <option value="agriculture">Agriculture & Fishery</option>
                         <option value="security">Security & Safety Services</option>
+                        <option value="garments">Garments</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="transport">Transport</option>
+                        <option value="business">Business</option>
+                        <option value="tvet">TVET</option>
                     </select>
                 </div>
             </div>
@@ -1126,26 +1131,6 @@
                             <p><i class="fas fa-calendar"></i> Starts: April 2025</p>
                             <p><i class="fas fa-map-marker-alt"></i> Sultan Kudarat, MDN</p>
                             <p><i class="fas fa-gift"></i> Free Uniforms + Allowance</p>
-                            <p><i class="fas fa-certificate"></i> TESDA Certificate</p>
-                        </div>
-                        <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary" style="width: 100%; margin-top: 15px; justify-content: center;">
-                            <i class="fas fa-edit"></i> Enroll Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Add more programs as needed -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <i class="fas fa-bread-slice"></i>
-                    </div>
-                    <div class="program-content">
-                        <h3>Bread & Pastry NC II</h3>
-                        <div class="program-details">
-                            <p><i class="fas fa-clock"></i> 141 hours</p>
-                            <p><i class="fas fa-calendar"></i> Ongoing</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Cotabato City</p>
-                            <p><i class="fas fa-gift"></i> Training Materials Provided</p>
                             <p><i class="fas fa-certificate"></i> TESDA Certificate</p>
                         </div>
                         <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary" style="width: 100%; margin-top: 15px; justify-content: center;">
@@ -1313,26 +1298,6 @@
                     </div>
                 </div>
 
-                <!-- Housekeeping NC II -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
-                    <div class="program-content">
-                        <h3>Housekeeping NC II</h3>
-                        <div class="program-details">
-                            <p><i class="fas fa-clock"></i> Training Hours TBA</p>
-                            <p><i class="fas fa-calendar"></i> Enrollment Open</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Multiple Locations</p>
-                            <p><i class="fas fa-gift"></i> Scholarship Available</p>
-                            <p><i class="fas fa-certificate"></i> TESDA Certificate</p>
-                        </div>
-                        <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary" style="width: 100%; margin-top: 15px; justify-content: center;">
-                            <i class="fas fa-edit"></i> Pre-Register
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Masonry NC II -->
                 <div class="program-card">
                     <div class="program-image">
@@ -1393,24 +1358,7 @@
                     </div>
                 </div>
 
-                <!-- Security Services NC I -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="program-content">
-                        <h3>Security Services NC I</h3>
-                        <div class="program-details">
-                            <p><i class="fas fa-clock"></i> Training Hours TBA</p>
-                            <p><i class="fas fa-calendar"></i> Enrollment Open</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Multiple Locations</p>
-                            <p><i class="fas fa-gift"></i> Scholarship Available</p>
-                            <p><i class="fas fa-certificate"></i> TESDA Certificate</p>
-                        </div>
-                        <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary" style="width: 100%; margin-top: 15px; justify-content: center;">
-                            <i class="fas fa-edit"></i> Pre-Register
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- Security Services NC II -->
@@ -1433,25 +1381,6 @@
                     </div>
                 </div>
 
-                <!-- Technical Drafting NC II -->
-                <div class="program-card">
-                    <div class="program-image">
-                        <i class="fas fa-drafting-compass"></i>
-                    </div>
-                    <div class="program-content">
-                        <h3>Technical Drafting NC II</h3>
-                        <div class="program-details">
-                            <p><i class="fas fa-clock"></i> Training Hours TBA</p>
-                            <p><i class="fas fa-calendar"></i> Enrollment Open</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Multiple Locations</p>
-                            <p><i class="fas fa-gift"></i> Scholarship Available</p>
-                            <p><i class="fas fa-certificate"></i> TESDA Certificate</p>
-                        </div>
-                        <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary" style="width: 100%; margin-top: 15px; justify-content: center;">
-                            <i class="fas fa-edit"></i> Pre-Register
-                        </a>
-                    </div>
-                </div>
 
                 <!-- ====== NEW PROGRAMS (requested) ====== -->
                 <div class="program-card">
@@ -1845,30 +1774,28 @@
         function initializeProgramSectors() {
             const mappings = {
                 'Housekeeping NC II': 'tourism',
-                'Bread & Pastry NC II': 'tourism',
                 'Cookery NC II': 'tourism',
-                'Food Processing NC II': 'tourism',
+                'Bread and Pastry Production NC II': 'tourism',
                 'Computer Systems Servicing NC II': 'ict',
                 'Contact Center Services NC II': 'ict',
-                'Electronic Products Assembly and Servicing NC II': 'ict',
-                'Technical Drafting NC II': 'ict',
-                'Driving NC II': 'construction',
                 'Electrical Installation and Maintenance NC II': 'construction',
                 'Masonry NC II': 'construction',
                 'Plumbing NC II': 'construction',
+                'Carpentry NC II': 'construction',
+                'Shielded Metal Arc Welding (SMAW) NC II': 'construction',
+                'Tile Setting NC II': 'construction',
+                'PV Installation NC II': 'construction',
                 'Health Care Services NC II': 'health',
-            'Security Services NC II': 'security',
-            'Pest Management (Vegetable) NC II': 'agriculture',
-            'Agricultural Crops Production NC II': 'agriculture',
-            'Animal Production (Poultry-Chicken) NC II': 'agriculture',
-            'Bookkeeping NC III': 'ict',
-            'Bread and Pastry Production NC II': 'tourism',
-            'Carpentry NC II': 'construction',
-            'Dressmaking NC II': 'tourism',
-            'PV Installation NC II': 'construction',
-            'Shielded Metal Arc Welding (SMAW) NC II': 'construction',
-            'Tile Setting NC II': 'construction',
-            'Trainers Methodology Level I': 'health'
+                'Agricultural Crops Production NC II': 'agriculture',
+                'Animal Production (Poultry-Chicken) NC II': 'agriculture',
+                'Pest Management (Vegetable) NC II': 'agriculture',
+                'Food Processing NC II': 'agriculture',
+                'Security Services NC II': 'security',
+                'Dressmaking NC II': 'garments',
+                'Electronic Products Assembly and Servicing NC II': 'electronics',
+                'Driving NC II': 'transport',
+                'Bookkeeping NC III': 'business',
+                'Trainers Methodology Level I': 'tvet'
             };
             document.querySelectorAll('.program-card').forEach(card => {
                 const title = card.querySelector('.program-content h3')?.textContent?.trim() || '';
