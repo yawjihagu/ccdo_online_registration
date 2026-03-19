@@ -943,7 +943,7 @@
                     <a href="#" onclick="openModal('registrationModal')" class="btn btn-primary">
                         <i class="fas fa-edit"></i> Enroll Now
                     </a>
-                    <a href="#programs" class="btn btn-outline">
+                    <a href="#programs" class="btn btn-outline" onclick="showAllPrograms(event)">
                         <i class="fas fa-graduation-cap"></i> Browse Programs
                     </a>
                     <a href="#" onclick="openModal('trackingModal')" class="btn btn-outline">
@@ -1989,6 +1989,23 @@
             }
             if (sectorSelect) {
                 sectorSelect.addEventListener('change', filterPrograms);
+            }
+        }
+
+        function showAllPrograms(event) {
+            event.preventDefault();
+            const sectorSelect = document.querySelector('#sectorSelect');
+            const searchInput = document.querySelector('#searchInput');
+
+            if (sectorSelect) sectorSelect.value = 'all';
+            if (searchInput) searchInput.value = '';
+
+            document.querySelectorAll('.sector-tile').forEach(tile => tile.classList.remove('active'));
+            filterPrograms();
+
+            const programSection = document.querySelector('#programs');
+            if (programSection) {
+                programSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
