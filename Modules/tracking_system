@@ -1,0 +1,15 @@
+Applicant submits form
+        ↓
+System generates Reference Number (e.g. RMDC-2025-00142)
+        ↓
+Applicant receives the number (via screen / SMS / email)
+        ↓
+Later, applicant visits "Track Application"
+        ↓
+Enters their reference number
+        ↓
+Sees their current status:
+  • Pending Review
+  • Approved — Report on [date]
+  • Waitlisted
+  • Rejected
