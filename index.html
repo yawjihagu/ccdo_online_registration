@@ -1633,8 +1633,9 @@
                 <p>Explore TESDA-accredited institutions across BARMM (Techmap embedded)</p>
             </div>
             <div id="map-container">
-                <iframe src="techmap.html" width="100%" height="100%" frameborder="0" style="border:0;"></iframe>
+                <iframe id="techmapFrame" src="techmap.html" width="100%" height="100%" frameborder="0" style="border:0;" onload="onTechmapLoad()" title="Techmap for training centers"></iframe>
             </div>
+            <p id="mapFallback" style="margin-top:12px;font-size:14px;color:#555;">If the map does not load, <a href="techmap.html" target="_blank">open the full map here</a>.</p>
         </div>
     </section>
 
@@ -2037,6 +2038,21 @@
             });
         }
 
+        function onTechmapLoad() {
+            const fallback = document.querySelector('#mapFallback');
+            if (fallback) {
+                fallback.textContent = 'Techmap loaded successfully.';
+            }
+        }
+
+        function onTechmapError() {
+            const fallback = document.querySelector('#mapFallback');
+            if (fallback) {
+                fallback.innerHTML = 'Unable to load embedded map. <a href="techmap.html" target="_blank" rel="noopener noreferrer">Open Techmap in a new tab</a>.';
+                fallback.style.color = '#d93025';
+            }
+        }
+
         // Trigger counter and sector logic on page load
         window.addEventListener('load', () => {
             animateCounters();
@@ -2046,6 +2062,11 @@
             addFilterListeners();
             filterPrograms();
             initializeProgramObserver();
+
+            const iframe = document.querySelector('#techmapFrame');
+            if (iframe) {
+                iframe.addEventListener('error', onTechmapError);
+            }
         });
     </script>
 </body>
