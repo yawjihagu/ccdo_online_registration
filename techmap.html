@@ -738,14 +738,7 @@
         <div class="filter-section">
             <label>Province:</label>
             <select id="provinceFilter" onchange="filterInstitutions()">
-                <option value="all">All Provinces</option>
                 <option value="cotabato-city">Cotabato City</option>
-                <option value="maguindanao-del-norte">Maguindanao del Norte</option>
-                <option value="maguindanao-del-sur">Maguindanao del Sur</option>
-                <option value="lanao-del-sur">Lanao del Sur</option>
-                <option value="basilan">Basilan</option>
-                <option value="sulu">Sulu</option>
-                <option value="tawi-tawi">Tawi-Tawi</option>
             </select>
         </div>
         
@@ -835,18 +828,12 @@
 
         // ✅ Add Province Coordinates HERE (right after map is created)
         const provinceCenters = {
-            "cotabato-city": { lat: 7.2047, lng: 124.2383, zoom: 12 },
-            "maguindanao-del-norte": { lat: 7.3000, lng: 124.2500, zoom: 10 },
-            "maguindanao-del-sur": { lat: 6.8600, lng: 124.4400, zoom: 10 },
-            "lanao-del-sur": { lat: 7.9300, lng: 124.3300, zoom: 10 },
-            "basilan": { lat: 6.6000, lng: 122.0000, zoom: 10 },
-            "sulu": { lat: 6.0400, lng: 121.0000, zoom: 10 },
-            "tawi-tawi": { lat: 5.1330, lng: 120.0500, zoom: 10 }
+            "cotabato-city": { lat: 7.2047, lng: 124.2383, zoom: 12 }
         };
 
 
         // Cotabato City Institutions Data
-        const institutions = [
+        const allInstitutions = [
             {
                 name: "A4 College of Peace and Wisdom, Inc.",
                 type: "college",
@@ -3391,6 +3378,8 @@
             
         ];
 
+        const institutions = allInstitutions.filter(inst => inst.province === 'cotabato-city');
+
         let markers = [];
         let currentMarkers = [];
         let currentView = 'map';
@@ -3503,12 +3492,6 @@
         document.getElementById("provinceFilter").addEventListener("change", function () {
             const selected = this.value;
 
-            if (selected === "all") {
-                // Reset to full BARMM view
-                map.setView([7.0, 124.0], 8);
-                return;
-            }
-
             if (provinceCenters[selected]) {
                 const p = provinceCenters[selected];
                 map.setView([p.lat, p.lng], p.zoom, {
@@ -3547,7 +3530,7 @@
             const filtered = institutions.filter(inst => {
                 const typeMatch = typeFilter === 'all' || inst.type === typeFilter;
                 const statusMatch = statusFilter === 'all' || inst.status === statusFilter;
-                const provinceMatch = provinceFilter === 'all' || inst.province === provinceFilter;
+                const provinceMatch = inst.province === provinceFilter;
                 const expiringMatch = !expiringOnly || isExpiringSoon(inst.expiryDate);
                 return typeMatch && statusMatch && provinceMatch && expiringMatch;
             });
@@ -3624,7 +3607,7 @@
             const filtered = institutions.filter(inst => {
                 const typeMatch = typeFilter === 'all' || inst.type === typeFilter;
                 const statusMatch = statusFilter === 'all' || inst.status === statusFilter;
-                const provinceMatch = provinceFilter === 'all' || inst.province === provinceFilter;
+                const provinceMatch = inst.province === provinceFilter;
                 return typeMatch && statusMatch && provinceMatch;
             });
 
